@@ -28,16 +28,11 @@ export function PokeList() {
   const shuffleCards = () => {
     const ranNumArr = [];
     const newPokeList = [...pokemonList];
-    while (ranNumArr.length < pokemonList.length) {
-      const randNum = Math.floor(Math.random() * pokemonList.length);
-      if (!ranNumArr.includes(randNum)) ranNumArr.push(randNum);
-    }
-    console.log(ranNumArr);
 
-    for (let i = 0; i < ranNumArr.length; i++) {
-      newPokeList[i] = pokemonList[ranNumArr[i]];
+    for (let i = newPokeList.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newPokeList[i], newPokeList[j]] = [newPokeList[j], newPokeList[i]];
     }
-
     setPokemonList(newPokeList);
   };
 
