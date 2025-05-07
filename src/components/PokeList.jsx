@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import "../styles/PokeList.css";
 
 export function PokeList() {
-  const pokemonQuantity = 5;
+  const numbersOfCards = 5;
   const numArr = [];
   const [pokemonList, setPokemonList] = useState([]);
 
-  while (numArr.length < pokemonQuantity) {
+  while (numArr.length < numbersOfCards) {
     const randNum = Math.floor(Math.random() * 100) + 1;
     if (!numArr.includes(randNum)) numArr.push(randNum);
   }
@@ -25,11 +25,31 @@ export function PokeList() {
     fetchData();
   }, []);
 
+  const shuffleCards = () => {
+    const ranNumArr = [];
+    const newPokeList = [...pokemonList];
+    while (ranNumArr.length < pokemonList.length) {
+      const randNum = Math.floor(Math.random() * pokemonList.length);
+      if (!ranNumArr.includes(randNum)) ranNumArr.push(randNum);
+    }
+    console.log(ranNumArr);
+
+    for (let i = 0; i < ranNumArr.length; i++) {
+      newPokeList[i] = pokemonList[ranNumArr[i]];
+    }
+
+    setPokemonList(newPokeList);
+  };
+
   return (
     <>
       <div className="pokemonList">
         {pokemonList.map((pokemon) => (
-          <div key={pokemon.name} className="eachPokemon">
+          <div
+            key={pokemon.name}
+            className="eachPokemon"
+            onClick={shuffleCards}
+          >
             <p>{pokemon.name}</p>
             <img src={pokemon.sprites.front_default} alt={pokemon.name} />
           </div>

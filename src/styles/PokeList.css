@@ -4,6 +4,13 @@
 }
 
 .eachPokemon {
+  width: 120px;
   border: white solid 2px;
   border-radius: 10px;
+}
+
+.eachPokemon:hover {
+  cursor: pointer;
+  background-color: #a8a8a8;
+  color: black;
 }
