@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/PokeList.css";
 
 export function PokeList() {
-  const numbersOfCards = 3;
+  const numbersOfCards = 4;
   const numArr = [];
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
@@ -11,6 +11,9 @@ export function PokeList() {
   const [gameState, setGameState] = useState("playing");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [instruction, setInstruction] = useState(
+    "Observe the card order before clicking."
+  );
 
   // Select random card ids to fetch
   while (numArr.length < numbersOfCards) {
@@ -28,7 +31,7 @@ export function PokeList() {
       });
       const pokemons = await Promise.all(promises);
       setPokemonList(pokemons);
-      setOrgList(pokemons); // original list to check with every click later}
+      setOrgList(pokemons); // original list to check with every card click later}
     } catch (error) {
       setError("Failed to load pokemons. Please try again.");
     } finally {
@@ -54,14 +57,25 @@ export function PokeList() {
 
   // Function to handle card click
   const clickCard = (e) => {
-    if (count < pokemonList.length - 1) setCount((c) => c + 1);
+    if (count < pokemonList.length - 1) {
+      setCount((c) => {
+        const newCount = c + 1;
+        const currentCard = newCount + 1;
+        const orderSuffix =
+          currentCard === 2 ? "nd" : currentCard === 3 ? "rd" : "th";
+        setInstruction(
+          `Find the card that was in the ${currentCard}${orderSuffix} position in the initial order`
+        );
+        return newCount;
+      });
+    }
     score === 0 && setScore((s) => s + 1);
-
     console.log(`count: ${count} ======================================`);
 
     if (count > 0) {
       console.log(`current id: ${e.currentTarget.id}`);
       console.log(`prev id: ${originalList[count].name}`);
+
       if (e.currentTarget.id === originalList[count].name) {
         const newScore = score + 1;
         setScore(newScore);
@@ -76,6 +90,16 @@ export function PokeList() {
     shuffleCards();
   };
 
+  // Function to reset game
+  const resetGame = () => {
+    setCount(0);
+    setScore(0);
+    setGameState("playing");
+    setInstruction("Observe the card order before clicking.");
+    // Fetch a new set of pokemons
+    fetchData();
+  };
+
   return (
     <>
       {isLoading ? (
@@ -85,14 +109,19 @@ export function PokeList() {
       ) : (
         <div className="wrapper">
           <div className="gameInfo">
-            <div className="count">Click: {count}</div>
             <div className="score">Score: {score}</div>
-            {gameState !== "playing" &&
-              (gameState === "won" ? (
-                <div>You won!</div>
-              ) : (
-                <div>Game over!</div>
-              ))}
+            {gameState !== "playing" ? (
+              <div className="gameOver">
+                {gameState === "won" ? (
+                  <div className="gameOverMsg">You won!</div>
+                ) : (
+                  <div className="gameOverMsg">Game over!</div>
+                )}
+                <button onClick={resetGame}>Play again</button>
+              </div>
+            ) : (
+              <div>{instruction}</div>
+            )}
           </div>
           <div className="cardList">
             {pokemonList.map((pokemon) => (
@@ -104,7 +133,7 @@ export function PokeList() {
                   clickCard(e);
                 }}
               >
-                <p>{pokemon.name}</p>
+                <div>{pokemon.name}</div>
                 <img src={pokemon.sprites.front_default} alt={pokemon.name} />
               </div>
             ))}
