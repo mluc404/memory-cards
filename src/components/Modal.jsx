@@ -15,9 +15,10 @@ export function Modal({
   return (
     <>
       {type === "setting" && (
-        <div className="modal-wrapper">
+        <div className="modal-wrapper setting">
           <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <div>Select Difficulty</div>
               <div className="modal-buttons">
                 <div
                   className="game-setting easy"
@@ -27,7 +28,7 @@ export function Modal({
                     onClose();
                   }}
                 >
-                  {">"} Easy
+                  {">"} I'm just a chill guy
                 </div>
                 <div
                   className="game-setting medium"
@@ -37,7 +38,7 @@ export function Modal({
                     onClose();
                   }}
                 >
-                  {">"} Medium
+                  {">"} I like a challenge
                 </div>
                 <button
                   className="modal-close"
@@ -52,10 +53,11 @@ export function Modal({
         </div>
       )}
 
+      {/* ////////////////////////////////////////////////// */}
+      {/* ////////////////////////////////////////////////// */}
       {/* END GAME MODAL */}
-
       {type === "endGame" && (
-        <div className="modal-wrapper">
+        <div className="modal-wrapper endGame">
           <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <div className="gameOver-msg">

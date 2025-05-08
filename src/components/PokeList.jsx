@@ -84,18 +84,20 @@ export function PokeList() {
     if (count > 0) {
       if (e.currentTarget.id === originalList[count].name) {
         const newScore = score + 1;
-        setScore(newScore);
-        if (newScore === pokemonList.length) {
+        if (gameState === "playing") setScore(newScore);
+        if (newScore >= pokemonList.length) {
           setGameState("won");
           handleGameOver();
         }
+      } else if (gameState === "won") {
+        handleGameOver();
       } else {
         setGameState("lost");
         handleGameOver();
       }
     }
     setShowIndex(false);
-    shuffleCards();
+    if (gameState === "playing") shuffleCards();
   };
 
   // Function to reset game
