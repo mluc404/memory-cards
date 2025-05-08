@@ -32,7 +32,7 @@
   gap: 2rem;
 }
 
-.modal-gameOver {
+.modal-wrapper {
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;

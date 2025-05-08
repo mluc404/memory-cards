@@ -4,8 +4,8 @@ import { Modal } from "./Modal";
 import pokeBall from "../assets/images/poke-ball-2.png";
 
 export function PokeList() {
-  const numbersOfCards = 4;
-  const numArr = [];
+  const [numberOfCards, setNumberOfCards] = useState(4);
+
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
   const [count, setCount] = useState(0);
@@ -17,18 +17,20 @@ export function PokeList() {
     "Observe the card order before clicking"
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenIntro, setIsOpenIntro] = useState(false);
+  const [isOpenSetting, setIsOpenSetting] = useState(false);
   const [showIndex, setShowIndex] = useState(true);
-
-  // Select random card ids to fetch
-  while (numArr.length < numbersOfCards) {
-    const randNum = Math.floor(Math.random() * 100) + 1;
-    if (!numArr.includes(randNum)) numArr.push(randNum);
-  }
 
   // Function to fetch the cards using above ids
   const fetchData = async () => {
     setIsLoading(true);
+    const numArr = [];
+
+    // Select random card ids to fetch
+    while (numArr.length < numberOfCards) {
+      const randNum = Math.floor(Math.random() * 100) + 1;
+      if (!numArr.includes(randNum)) numArr.push(randNum);
+    }
+    // Fetch data
     try {
       const promises = numArr.map(async (i) => {
         const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
@@ -44,11 +46,10 @@ export function PokeList() {
     }
   };
 
-  // Upon component mounting, fetch the cards
+  // Upon component mounting or change of card numbers, fetch the cards
   useEffect(() => {
     fetchData();
-    setIsOpenIntro(true);
-  }, []);
+  }, [numberOfCards]);
 
   // Function to shuffle cards
   const shuffleCards = () => {
@@ -79,13 +80,11 @@ export function PokeList() {
       });
     }
     score === 0 && setScore((s) => s + 1);
-    console.log(`count: ${count} ======================================`);
 
     if (count > 0) {
       if (e.currentTarget.id === originalList[count].name) {
         const newScore = score + 1;
         setScore(newScore);
-        console.log("score:", newScore, "arr length:", pokemonList.length);
         if (newScore === pokemonList.length) {
           setGameState("won");
           handleGameOver();
@@ -108,7 +107,7 @@ export function PokeList() {
     // Fetch a new set of pokemons
     fetchData();
     setIsOpen(false);
-    setIsOpenIntro(false);
+    setIsOpenSetting(false);
     setShowIndex(true);
   };
 
@@ -130,11 +129,11 @@ export function PokeList() {
           <div className="gameInfo">
             <div className="scoreAndSettings">
               <div className="score">
-                Score: {score}/{numbersOfCards}
+                Score: {score}/{numberOfCards}
               </div>
               <button
                 className="btn-setting"
-                onClick={() => setIsOpenIntro(true)}
+                onClick={() => setIsOpenSetting(true)}
               >
                 +
               </button>
@@ -174,29 +173,19 @@ export function PokeList() {
       )}
 
       <Modal
-        isOpen={isOpenIntro}
-        onClose={() => setIsOpenIntro(false)}
-        children={
-          <div className="modal-gameOver">
-            <div className="gameOver-msg">Welcome to PokeMind!</div>
-            <div>Select Difficulty</div>
-          </div>
-        }
+        type="setting"
+        isOpen={isOpenSetting}
+        onClose={() => setIsOpenSetting(false)}
+        setNumberOfCards={setNumberOfCards}
         resetGame={resetGame}
       />
       <Modal
+        type="endGame"
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        children={
-          <div className="modal-gameOver">
-            <div className="gameOver-msg">
-              {gameState === "won" ? "You Won! 🎉" : "Game Over!"}
-            </div>
-            <div>
-              Final Score: {score}/{numbersOfCards}
-            </div>
-          </div>
-        }
+        score={score}
+        numberOfCards={numberOfCards}
+        gameState={gameState}
         resetGame={resetGame}
       />
     </>
