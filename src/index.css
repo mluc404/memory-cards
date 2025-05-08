@@ -4,14 +4,9 @@
 }
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-family: Pokemon, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,25 +15,25 @@
 }
 
 body {
-  background-image: url("./assets/images/gameBG.jpg");
+  background-image: url("./assets/images/bg-final.png");
 
-  height: 100vh;
+  /* height: 100dvh; */
+  min-height: 100dvh;
 
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-  display: grid;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
 }
 
 @media screen and (max-width: 400px) {
   body {
-    background-image: url("./assets/images/bg-vertical-2.jpg");
-    background-position: 40%;
+    background-position: 80% 20%;
   }
   #root {
     padding: 1px;
@@ -52,10 +47,6 @@ footer {
   align-items: center;
   color: black;
 }
-
-/* footer:hover {
-  cursor: pointer;
-} */
 
 a {
   display: flex;
@@ -71,4 +62,8 @@ a:visited {
 
 #githubLogo {
   width: 1.5rem;
+}
+
+button {
+  font-family: Pokemon;
 }

@@ -4,7 +4,7 @@ import { Modal } from "./Modal";
 import pokeBall from "../assets/images/poke-ball-2.png";
 
 export function PokeList() {
-  const numbersOfCards = 5;
+  const numbersOfCards = 4;
   const numArr = [];
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
@@ -17,6 +17,8 @@ export function PokeList() {
     "Observe the card order before clicking"
   );
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenIntro, setIsOpenIntro] = useState(false);
+  const [showIndex, setShowIndex] = useState(true);
 
   // Select random card ids to fetch
   while (numArr.length < numbersOfCards) {
@@ -45,6 +47,7 @@ export function PokeList() {
   // Upon component mounting, fetch the cards
   useEffect(() => {
     fetchData();
+    setIsOpenIntro(true);
   }, []);
 
   // Function to shuffle cards
@@ -92,6 +95,7 @@ export function PokeList() {
         handleGameOver();
       }
     }
+    setShowIndex(false);
     shuffleCards();
   };
 
@@ -104,6 +108,8 @@ export function PokeList() {
     // Fetch a new set of pokemons
     fetchData();
     setIsOpen(false);
+    setIsOpenIntro(false);
+    setShowIndex(true);
   };
 
   return (
@@ -114,16 +120,24 @@ export function PokeList() {
         <div>{error}</div>
       ) : (
         <div className="wrapper">
-          <div className="heading">
+          <div className="heading" onClick={resetGame}>
             <span>
               <img src={pokeBall} id="pokeBall"></img>
             </span>
-            <span class="gameTitle poke">Poke</span>
-            <span class="gameTitle cards">Cards</span>
+            <span className="gameTitle poke">Poke</span>
+            <span className="gameTitle mind">Mind</span>
           </div>
           <div className="gameInfo">
-            <div className="score">
-              Score: {score}/{numbersOfCards}
+            <div className="scoreAndSettings">
+              <div className="score">
+                Score: {score}/{numbersOfCards}
+              </div>
+              <button
+                className="btn-setting"
+                onClick={() => setIsOpenIntro(true)}
+              >
+                +
+              </button>
             </div>
             {gameState !== "playing" ? (
               <div className="gameOver">
@@ -138,7 +152,7 @@ export function PokeList() {
             )}
           </div>
           <div className="cardList">
-            {pokemonList.map((pokemon) => (
+            {pokemonList.map((pokemon, index) => (
               <div
                 key={pokemon.name}
                 className="card"
@@ -147,8 +161,12 @@ export function PokeList() {
                   clickCard(e);
                 }}
               >
-                <div className="pokemon-name">{pokemon.name}</div>
+                <div className="pokemon-name">
+                  {pokemon.name[0].toUpperCase()}
+                  {pokemon.name.slice(1)}
+                </div>
                 <img src={pokemon.sprites.front_default} alt={pokemon.name} />
+                {showIndex && <div>{index + 1}</div>}
               </div>
             ))}
           </div>
@@ -156,12 +174,23 @@ export function PokeList() {
       )}
 
       <Modal
+        isOpen={isOpenIntro}
+        onClose={() => setIsOpenIntro(false)}
+        children={
+          <div className="modal-gameOver">
+            <div className="gameOver-msg">Welcome to PokeMind!</div>
+            <div>Select Difficulty</div>
+          </div>
+        }
+        resetGame={resetGame}
+      />
+      <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         children={
           <div className="modal-gameOver">
             <div className="gameOver-msg">
-              {gameState === "won" ? "You Won! 🎉" : "Game Over! 😢"}
+              {gameState === "won" ? "You Won! 🎉" : "Game Over!"}
             </div>
             <div>
               Final Score: {score}/{numbersOfCards}
