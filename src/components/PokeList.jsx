@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/PokeList.css";
+import { Modal } from "./Modal";
 
 export function PokeList() {
-  const numbersOfCards = 4;
+  const numbersOfCards = 3;
   const numArr = [];
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
@@ -12,8 +13,9 @@ export function PokeList() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [instruction, setInstruction] = useState(
-    "Observe the card order before clicking."
+    "Observe the card order before clicking"
   );
+  const [isOpen, setIsOpen] = useState(false);
 
   // Select random card ids to fetch
   while (numArr.length < numbersOfCards) {
@@ -55,6 +57,11 @@ export function PokeList() {
     setPokemonList(newPokeList);
   };
 
+  // Function to handle game over
+  const handleGameOver = () => {
+    setIsOpen(true);
+  };
+
   // Function to handle card click
   const clickCard = (e) => {
     if (count < pokemonList.length - 1) {
@@ -63,9 +70,7 @@ export function PokeList() {
         const currentCard = newCount + 1;
         const orderSuffix =
           currentCard === 2 ? "nd" : currentCard === 3 ? "rd" : "th";
-        setInstruction(
-          `Find the card that was in the ${currentCard}${orderSuffix} position in the initial order`
-        );
+        setInstruction(`Select the initial ${currentCard}${orderSuffix} card`);
         return newCount;
       });
     }
@@ -73,18 +78,17 @@ export function PokeList() {
     console.log(`count: ${count} ======================================`);
 
     if (count > 0) {
-      console.log(`current id: ${e.currentTarget.id}`);
-      console.log(`prev id: ${originalList[count].name}`);
-
       if (e.currentTarget.id === originalList[count].name) {
         const newScore = score + 1;
         setScore(newScore);
         console.log("score:", newScore, "arr length:", pokemonList.length);
         if (newScore === pokemonList.length) {
           setGameState("won");
+          handleGameOver();
         }
       } else {
         setGameState("lost");
+        handleGameOver();
       }
     }
     shuffleCards();
@@ -95,9 +99,10 @@ export function PokeList() {
     setCount(0);
     setScore(0);
     setGameState("playing");
-    setInstruction("Observe the card order before clicking.");
+    setInstruction("Observe the card order before clicking");
     // Fetch a new set of pokemons
     fetchData();
+    setIsOpen(false);
   };
 
   return (
@@ -108,8 +113,11 @@ export function PokeList() {
         <div>{error}</div>
       ) : (
         <div className="wrapper">
+          <div className="title">PokeCard</div>
           <div className="gameInfo">
-            <div className="score">Score: {score}</div>
+            <div className="score">
+              Score: {score}/{numbersOfCards}
+            </div>
             {gameState !== "playing" ? (
               <div className="gameOver">
                 {gameState === "won" ? (
@@ -117,7 +125,6 @@ export function PokeList() {
                 ) : (
                   <div className="gameOverMsg">Game over!</div>
                 )}
-                <button onClick={resetGame}>Play again</button>
               </div>
             ) : (
               <div>{instruction}</div>
@@ -127,7 +134,7 @@ export function PokeList() {
             {pokemonList.map((pokemon) => (
               <div
                 key={pokemon.name}
-                className="eachPokemon"
+                className="card"
                 id={pokemon.name}
                 onClick={(e) => {
                   clickCard(e);
@@ -140,6 +147,24 @@ export function PokeList() {
           </div>
         </div>
       )}
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        children={
+          <div className="modal-gameOver">
+            <div className="gameOver-msg">
+              {gameState === "won" ? "You Won! 🎉" : "Game Over! 😢"}
+            </div>
+            <div>
+              Final Score: {score}/{numbersOfCards}
+            </div>
+            <div className="playAgain">
+              <button onClick={resetGame}>Play again</button>
+            </div>
+          </div>
+        }
+      />
     </>
   );
 }
