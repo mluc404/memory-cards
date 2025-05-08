@@ -1,9 +1,13 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 0;
   padding: 2rem;
   text-align: center;
 
   display: flex;
   justify-content: center;
+}
+@media screen and (max-width: 400px) {
+  #root {
+    padding: 1rem;
+  }
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/PokeList.css";
 import { Modal } from "./Modal";
+import pokeBall from "../assets/images/poke-ball-2.png";
 
 export function PokeList() {
-  const numbersOfCards = 3;
+  const numbersOfCards = 5;
   const numArr = [];
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
@@ -113,7 +114,13 @@ export function PokeList() {
         <div>{error}</div>
       ) : (
         <div className="wrapper">
-          <div className="title">PokeCard</div>
+          <div className="heading">
+            <span>
+              <img src={pokeBall} id="pokeBall"></img>
+            </span>
+            <span class="gameTitle poke">Poke</span>
+            <span class="gameTitle cards">Cards</span>
+          </div>
           <div className="gameInfo">
             <div className="score">
               Score: {score}/{numbersOfCards}
@@ -127,7 +134,7 @@ export function PokeList() {
                 )}
               </div>
             ) : (
-              <div>{instruction}</div>
+              <div className="instruction">{instruction}</div>
             )}
           </div>
           <div className="cardList">
@@ -140,7 +147,7 @@ export function PokeList() {
                   clickCard(e);
                 }}
               >
-                <div>{pokemon.name}</div>
+                <div className="pokemon-name">{pokemon.name}</div>
                 <img src={pokemon.sprites.front_default} alt={pokemon.name} />
               </div>
             ))}
@@ -159,11 +166,9 @@ export function PokeList() {
             <div>
               Final Score: {score}/{numbersOfCards}
             </div>
-            <div className="playAgain">
-              <button onClick={resetGame}>Play again</button>
-            </div>
           </div>
         }
+        resetGame={resetGame}
       />
     </>
   );

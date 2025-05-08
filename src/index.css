@@ -1,5 +1,11 @@
+@font-face {
+  font-family: Pokemon;
+  src: url("src/assets/fonts/Retro_Gaming.ttf");
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Pokemon, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,4 +17,58 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: url("./assets/images/gameBG.jpg");
+
+  height: 100vh;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  display: grid;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 400px) {
+  body {
+    background-image: url("./assets/images/bg-vertical-2.jpg");
+    background-position: 40%;
+  }
+  #root {
+    padding: 1px;
+  }
+}
+
+footer {
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+/* footer:hover {
+  cursor: pointer;
+} */
+
+a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+a:visited {
+  color: black;
+}
+
+#githubLogo {
+  width: 1.5rem;
 }
