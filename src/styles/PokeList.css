@@ -67,7 +67,7 @@
   font-size: 2rem;
   padding: 0;
   color: #3e3e3e;
-  border: #484848 solid 3px;
+  border: #3e3e3e solid 3px;
   width: 2rem;
   height: 2rem;
   display: flex;
@@ -120,6 +120,10 @@
 }
 
 @media screen and (max-width: 400px) {
+  .wrapper {
+    padding-top: 0.5rem;
+    gap: 1.5rem;
+  }
   .card {
     width: 8rem;
     height: 10rem;

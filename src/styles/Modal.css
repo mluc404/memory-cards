@@ -21,12 +21,14 @@
   max-width: 70%;
   max-height: 70vh;
   overflow-y: auto;
-  color: rgb(58, 58, 58);
+  color: #3a3a3a;
   font-size: 1.2rem;
 
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  border: #3a3a3a solid 4px;
 }
 
 .modal-wrapper {
@@ -51,6 +53,7 @@
   font-size: 1.2rem;
   border-radius: 10px;
   color: white;
+  background-color: rgb(31, 31, 31);
 
   font-family: Pokemon, Arial, Helvetica, sans-serif;
 }
@@ -59,4 +62,20 @@
   font-size: 2rem;
   text-align: center;
   padding: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .modal-buttons.settings {
+    align-items: start;
+    align-content: center;
+  }
+
+  .game-setting {
+    padding-left: 1rem;
+  }
+}
+
+.game-setting:hover,
+button:hover {
+  cursor: pointer;
 }

@@ -17,7 +17,7 @@ export function PokeList() {
     "Observe the card order before clicking"
   );
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenSetting, setIsOpenSetting] = useState(false);
+  const [isOpenSetting, setIsOpenSetting] = useState(true);
   const [showIndex, setShowIndex] = useState(true);
 
   // Function to fetch the cards using above ids
@@ -82,7 +82,10 @@ export function PokeList() {
     score === 0 && setScore((s) => s + 1);
 
     if (count > 0) {
-      if (e.currentTarget.id === originalList[count].name) {
+      if (
+        e.currentTarget.id === originalList[count].name &&
+        gameState !== "lost"
+      ) {
         const newScore = score + 1;
         if (gameState === "playing") setScore(newScore);
         if (newScore >= pokemonList.length) {

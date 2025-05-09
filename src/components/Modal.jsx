@@ -18,8 +18,9 @@ export function Modal({
         <div className="modal-wrapper setting">
           <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div>Select Difficulty</div>
-              <div className="modal-buttons">
+              <div>Welcome to PokeMind, a memory card game</div>
+              <div>Select Difficulty:</div>
+              <div className="modal-buttons settings">
                 <div
                   className="game-setting easy"
                   onClick={() => {
@@ -40,13 +41,13 @@ export function Modal({
                 >
                   {">"} I like a challenge
                 </div>
-                <button
+                {/* <button
                   className="modal-close"
                   onClick={onClose}
                   id="btn-close"
                 >
                   x
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
