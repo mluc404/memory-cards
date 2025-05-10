@@ -5,7 +5,6 @@ import pokeBall from "../assets/images/poke-ball-2.png";
 
 export function PokeList() {
   const [numberOfCards, setNumberOfCards] = useState(4);
-
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
   const [count, setCount] = useState(0);
@@ -109,8 +108,10 @@ export function PokeList() {
     setScore(0);
     setGameState("playing");
     setInstruction("Observe the card order before clicking");
-    // Fetch a new set of pokemons
-    fetchData();
+    // Only fetch new pokemons if not changing difficulty
+    if (!isOpenSetting) {
+      fetchData();
+    }
     setIsOpen(false);
     setIsOpenSetting(false);
     setShowIndex(true);

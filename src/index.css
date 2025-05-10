@@ -1,6 +1,6 @@
 @font-face {
   font-family: Pokemon;
-  src: url("src/assets/fonts/Retro_Gaming.ttf");
+  src: url("./assets/fonts/Retro_Gaming.ttf");
 }
 
 :root {
