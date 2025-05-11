@@ -8,5 +8,9 @@ export default defineConfig({
     open: true,
     host: "0.0.0.0",
   },
-  base: "/memory-cards/",
+  base:
+    process.env.NODE_ENV === "production" &&
+    process.env.DEPLOY_PLATFORM === "github"
+      ? "/memory-cards/"
+      : "/",
 });

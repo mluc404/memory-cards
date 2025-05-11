@@ -1,6 +1,6 @@
 # PokeMind - A Memory Card Game
 
-Test your memory by selecting unique Pokémon cards in the correct order. Built with **React** and powered by the **PokeAPI**, PokeMind challenges players to stay sharp as the cards shuffle after every correct selection.
+Test your memory by selecting unique Pokémon cards in the correct order. Built with **React** and powered by **PokeAPI**, PokeMind challenges players to stay sharp as the cards shuffle after every correct selection.
 
 <img src="./src/assets/images/screenshot.png" alt="PokeMind Game Screenshot" width="600" style="border-radius: 15px" />
 
@@ -12,7 +12,7 @@ Test your memory by selecting unique Pokémon cards in the correct order. Built 
 
 - Vite
 - React
-- PokeAPI
+- [<u>PokeAPI</u>](https://pokeapi.co/docs/v2#info)
 
 ## Features
 
@@ -24,10 +24,10 @@ Test your memory by selecting unique Pokémon cards in the correct order. Built 
 
 ### React Concepts
 
-- **State Management**: Used `useState` to manage score, cards, game status, and UI updates
-- **Side Effects with** `useEffect`: Fetched Pokémon data on mount and responded to game state changes
-- **Component Architecture**: Built modular, reusable components
-- **Event Handling**: Implemented click handlers with proper event propagation control
+- **State Management**: Implemented state interactions between game logic, UI updates, and API data, with careful consideration of state dependencies and update timing
+- **Performance Optimization**: Utilized React's StrictMode and optimized component re-renders through proper state management and event handling
+- **Component Architecture**: Built modular, reusable components with clear separation of concerns
+- **Event Handling**: Implemented event handling with proper event propagation control and state synchronization
 
 ### UI/UX
 
