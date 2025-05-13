@@ -4,7 +4,7 @@ import { Modal } from "./Modal";
 import pokeBall from "../assets/images/poke-ball-2.png";
 
 export function PokeList() {
-  const [numberOfCards, setNumberOfCards] = useState(4);
+  const [numberOfCards, setNumberOfCards] = useState(0);
   const [pokemonList, setPokemonList] = useState([]);
   const [originalList, setOrgList] = useState([]);
   const [count, setCount] = useState(0);
@@ -147,9 +147,9 @@ export function PokeList() {
             {gameState !== "playing" ? (
               <div className="gameOver">
                 {gameState === "won" ? (
-                  <div className="gameOverMsg">You won!</div>
+                  <div className="gameOverMsg">You Won!</div>
                 ) : (
-                  <div className="gameOverMsg">Game over!</div>
+                  <div className="gameOverMsg">Game Over</div>
                 )}
               </div>
             ) : (
@@ -162,6 +162,7 @@ export function PokeList() {
                 key={pokemon.name}
                 className="card"
                 id={pokemon.name}
+                data-testid={`poke-card-${pokemon.name}`}
                 onClick={(e) => {
                   clickCard(e);
                 }}
