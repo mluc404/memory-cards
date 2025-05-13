@@ -79,3 +79,35 @@
 button:hover {
   cursor: pointer;
 }
+
+.modal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-info-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-info-result img {
+  width: 70%;
+}
+
+@media screen and (min-width: 400px) {
+  .modal-content {
+    top: -5%;
+    padding-top: 3rem;
+  }
+
+  .modal-info-result img {
+    max-height: 40vh;
+  }
+
+  .gameOver-msg {
+    font-size: 1.8rem;
+  }
+}

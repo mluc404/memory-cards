@@ -1,4 +1,6 @@
 import "../styles/Modal.css";
+import pikaSad2 from "../assets/images/pika-sad-2.gif";
+import pikaHappy from "../assets/images/pika-happy.gif";
 
 export function Modal({
   type,
@@ -41,28 +43,31 @@ export function Modal({
                 >
                   {">"} I like a challenge
                 </div>
-                {/* <button
-                  className="modal-close"
-                  onClick={onClose}
-                  id="btn-close"
-                >
-                  x
-                </button> */}
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* ////////////////////////////////////////////////// */}
+      {/* ///////////////////////////////////////////////// */}
       {/* ////////////////////////////////////////////////// */}
       {/* END GAME MODAL */}
       {type === "endGame" && (
         <div className="modal-wrapper endGame">
           <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="gameOver-msg">
-                {gameState === "won" ? "You Won! 🎉" : "Game Over!"}
+              <div className="modal-info">
+                {gameState === "won" ? (
+                  <div className="modal-info-result won">
+                    <div className="gameOver-msg">You Won! 🎉</div>
+                    <img src={pikaHappy} alt="happy pikachu" />
+                  </div>
+                ) : (
+                  <div className="modal-info-result lost">
+                    <div className="gameOver-msg">Game Over!</div>
+                    <img src={pikaSad2} alt="sad pikachu" />
+                  </div>
+                )}
               </div>
               <div>
                 Final Score: {score}/{numberOfCards}
