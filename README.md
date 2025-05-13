@@ -6,7 +6,7 @@ Test your memory by selecting unique Pokémon cards in the correct order. Built 
 
 <br>
 
-[<u><font size="3">🎮 Play Game</font></u>](https://mluc404.github.io/memory-cards/)
+[<u><font size="3">🎮 Play Game</font></u>](https://pokemindgame.netlify.app/)
 
 ## Tech Stack
 
