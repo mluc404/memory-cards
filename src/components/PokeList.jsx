@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/PokeList.css";
 import { Modal } from "./Modal";
 import pokeBall from "../assets/images/poke-ball-2.png";
+import pikaSad from "../assets/images/pika-sad-2.gif";
+import pikaHappy from "../assets/images/pika-happy.gif";
 
 export function PokeList() {
   const [numberOfCards, setNumberOfCards] = useState(0);
@@ -18,6 +20,7 @@ export function PokeList() {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSetting, setIsOpenSetting] = useState(true);
   const [showIndex, setShowIndex] = useState(true);
+  const animation = { lost: pikaSad, win: pikaHappy };
 
   // Function to fetch the cards using above ids
   const fetchData = async () => {
@@ -194,6 +197,7 @@ export function PokeList() {
         numberOfCards={numberOfCards}
         gameState={gameState}
         resetGame={resetGame}
+        animation={animation}
       />
     </>
   );

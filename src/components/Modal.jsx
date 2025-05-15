@@ -1,6 +1,4 @@
 import "../styles/Modal.css";
-import pikaSad2 from "../assets/images/pika-sad-2.gif";
-import pikaHappy from "../assets/images/pika-happy.gif";
 
 export function Modal({
   type,
@@ -11,6 +9,7 @@ export function Modal({
   score,
   numberOfCards,
   resetGame,
+  animation,
 }) {
   if (!isOpen) return null;
 
@@ -60,12 +59,12 @@ export function Modal({
                 {gameState === "won" ? (
                   <div className="modal-info-result won">
                     <div className="gameOver-msg">You Won! 🎉</div>
-                    <img src={pikaHappy} alt="happy pikachu" />
+                    <img src={animation.win} alt="happy pikachu" />
                   </div>
                 ) : (
                   <div className="modal-info-result lost">
                     <div className="gameOver-msg">Game Over!</div>
-                    <img src={pikaSad2} alt="sad pikachu" />
+                    <img src={animation.lost} alt="sad pikachu" />
                   </div>
                 )}
               </div>
